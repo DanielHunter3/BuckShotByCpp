@@ -12,7 +12,7 @@ class OnePlayer
 {
 private:
 	// ! Указатель
-	Items *items = new Items; // TODO this
+	Items *items = new Items;
 	std::string name; // * Имя игрока
 	size_t hearts;    // * Кол-во ХП игрока
 	size_t copy_hearts;  // * Копия hearts
@@ -39,7 +39,7 @@ public:
 	/// @brief Игрок умер
 	void death() { hearts = 0; }
 	/// @brief Восстанавливает игроку по одному ХП
-	void regeneration() // TODO: Добавить удаление объекта CIGARETTE
+	void regeneration()
 	{
 		if (!in_vector(items->ReturnObjects(), CIGARETTE)) std::cout << "Object is undefined";
 		else

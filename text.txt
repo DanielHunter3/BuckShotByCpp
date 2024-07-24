@@ -1,0 +1,13 @@
+while (vec.size() != 0)
+		{
+			--length;
+			std::uniform_int_distribution<size_t> *dist = new std::uniform_int_distribution<size_t>(0, length); // ! Указатель
+			size_t *randindex = new size_t; // ! Указатель
+
+			*randindex = (*dist)(gen);
+			queue->push_back(vec[*randindex]);
+			vec.erase(vec.begin() + *randindex);
+
+			delete randindex;   // ! Очистить указатель
+			delete dist;        // ! Очистить указатель
+		}

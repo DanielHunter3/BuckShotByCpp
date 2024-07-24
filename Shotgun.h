@@ -34,13 +34,10 @@ public:
 		
 		for (unsigned i = 0; i < full; ++i) vec.push_back(true);
 		for (unsigned i = 0; i < empty; ++i) vec.push_back(false);
-
-		size_t length = vec.size();
 		
 		while (vec.size() != 0)
 		{
-			--length;
-			std::uniform_int_distribution<size_t> *dist = new std::uniform_int_distribution<size_t>(0, length); // ! Указатель
+			std::uniform_int_distribution<size_t> *dist = new std::uniform_int_distribution<size_t>(0, vec.size() - 1); // ! Указатель
 			size_t *randindex = new size_t; // ! Указатель
 
 			*randindex = (*dist)(gen);
@@ -85,6 +82,7 @@ public:
 
 	/// @brief Деструктор
 	~Shotgun() { 
+		std::cout << "Shotgun has been deleted\n";
 		clear();
 		delete queue; 
 	}

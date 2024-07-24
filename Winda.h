@@ -72,5 +72,8 @@ void matrix() {
         ++z;
     }
 
+    std::cout << std::endl;
+    SetConsoleTextAttribute(hConsole, 7);
+    system("pause");
     system("cls");
 }
