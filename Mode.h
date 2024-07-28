@@ -28,7 +28,8 @@ void game()
 
     TwoPlayers players(*name1, *name2);
     delete name1; delete name2;
-    Shotgun shotgun;
+    //Shotgun shotgun;
+    //players.get_shotgun(new Shotgun);
 
     std::string answer_for_shot;
 

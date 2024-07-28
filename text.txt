@@ -1,13 +1,31 @@
-while (vec.size() != 0)
+void use(Objects &object)
+	{
+		if (!in_vector(items->ReturnObjects(), object))
+			std::cout << "The object was not found";
+		else
 		{
-			--length;
-			std::uniform_int_distribution<size_t> *dist = new std::uniform_int_distribution<size_t>(0, length); // ! Указатель
-			size_t *randindex = new size_t; // ! Указатель
-
-			*randindex = (*dist)(gen);
-			queue->push_back(vec[*randindex]);
-			vec.erase(vec.begin() + *randindex);
-
-			delete randindex;   // ! Очистить указатель
-			delete dist;        // ! Очистить указатель
+			switch (object)
+			{
+				case CIGARETTE:
+                    regeneration();
+					std::cout << "The cigarette has been used\n";
+                    break;
+				case BEER:
+				    std::cout << "The beer has been used";
+					std::cout << (shotgun->fire() ? "FULL" : "EMPTY") << std::endl;
+					shotgun->del();
+                    break;
+                case MAGNIFIER:
+				    std::cout << "The magnifier has been used\n";
+					std::cout << (shotgun->fire() ? "FULL" : "EMPTY") << std::endl;
+                    break;
+				case KNIFE:
+				    std::cout << "The knife has been used\n";
+                    shotgun->swap_damage();
+                    break;
+                default:
+                    std::cout << "Unknown object\n";
+                    break;
+			}
 		}
+	}

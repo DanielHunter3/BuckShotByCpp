@@ -3,10 +3,12 @@
 #include <iostream>
 #include <format>
 #include <map>
+#include <memory>
 
 #include "Item.h"
 #include "Constant.h"
 #include "Details.h"
+#include "Shotgun.h"
 
 class OnePlayer
 {
@@ -61,9 +63,13 @@ public:
 	/// @brief Выводит объекты
 	void println_objects()
 	{ for (std::string &i: items->ObjectsByStr()) std::cout << i << '\n'; }
-
+	std::vector<Objects> ret_items() { return items->ReturnObjects(); };
+	
 	/// @brief Деструктор
-	~OnePlayer() { delete items; }
+	~OnePlayer() { 
+		delete items; 
+		std::cout << "Objects has been deleted (from OnePlayer)\n";
+	}
 };
 
 class TwoPlayers
@@ -71,6 +77,7 @@ class TwoPlayers
 public:
 	enum Turn { First, Second };
 	enum Turn_for_damage { first_damage, second_damage };
+	Shotgun *shotgun = new Shotgun;
 
 private:
 	OnePlayer player1, player2; // * 2 игрока
@@ -94,6 +101,8 @@ public:
 		player1.get(lives);
 		player2.get(lives);
 	}
+
+	//void get_shotgun(Shotgun *weapon) { shotgun = weapon; }
 
 	/// @brief Возвращает очередь
 	/// @return Player::TwoPlayers::Turn turn
@@ -162,5 +171,50 @@ public:
 			map_for_damage[Second] = second_damage;
 		}
 		turn_for_damage = map_for_damage[turn];
+	}
+
+	std::vector<Objects> user_objects()
+	{
+		return ( turn == First ? player1.ret_items() : player2.ret_items() );
+	}
+
+	void use(Objects &object)
+	{
+		if (user_objects().empty())
+			std::cout << "No objects to use\n";
+		else if (!in_vector(user_objects(), object))
+			std::cout << "The object was not found\n";
+		else
+		{
+			switch (object)
+			{
+				case CIGARETTE:
+                    regeneration();
+					std::cout << "The cigarette has been used\n";
+                    break;
+				case BEER:
+				    std::cout << "The beer has been used\n";
+					std::cout << (shotgun->fire() ? "FULL" : "EMPTY") << std::endl;
+					shotgun->del();
+                    break;
+                case MAGNIFIER:
+				    std::cout << "The magnifier has been used\n";
+					std::cout << (shotgun->fire() ? "FULL" : "EMPTY") << std::endl;
+                    break;
+				case KNIFE:
+				    std::cout << "The knife has been used\n";
+                    shotgun->swap_damage();
+                    break;
+                default:
+                    std::cout << "Unknown object\n";
+                    break;
+			}
+		}
+	}
+
+	~TwoPlayers()
+	{ 
+		delete shotgun;
+		std::cout << "Shotgun has been deleted (from TwoPlayers)\n"; 
 	}
 };

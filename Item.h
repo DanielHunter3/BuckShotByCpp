@@ -105,14 +105,9 @@ public:
 			}
 	}
 
-	void use(Objects &object)
-	{
-		// TODO: do this
-	}
-
 	/// @brief Деструктор
 	~Items() { 
-		std::cout << "Items has been deleted\n";
+		std::cout << "Queue of items has been deleted (from Items)\n";
 		delete items; 
 	}
 };

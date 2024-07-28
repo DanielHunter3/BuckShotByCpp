@@ -82,7 +82,7 @@ public:
 
 	/// @brief Деструктор
 	~Shotgun() { 
-		std::cout << "Shotgun has been deleted\n";
+		std::cout << "Queue of shots has been deleted (from Shotgun)\n";
 		clear();
 		delete queue; 
 	}
