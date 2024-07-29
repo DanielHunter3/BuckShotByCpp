@@ -1,31 +1,48 @@
-void use(Objects &object)
-	{
-		if (!in_vector(items->ReturnObjects(), object))
-			std::cout << "The object was not found";
-		else
-		{
-			switch (object)
-			{
-				case CIGARETTE:
-                    regeneration();
-					std::cout << "The cigarette has been used\n";
-                    break;
-				case BEER:
-				    std::cout << "The beer has been used";
-					std::cout << (shotgun->fire() ? "FULL" : "EMPTY") << std::endl;
-					shotgun->del();
-                    break;
-                case MAGNIFIER:
-				    std::cout << "The magnifier has been used\n";
-					std::cout << (shotgun->fire() ? "FULL" : "EMPTY") << std::endl;
-                    break;
-				case KNIFE:
-				    std::cout << "The knife has been used\n";
-                    shotgun->swap_damage();
-                    break;
-                default:
-                    std::cout << "Unknown object\n";
-                    break;
-			}
-		}
-	}
+void settings()
+{
+    std::cout << std::format("Use command resize (enter) *name of element*\n\n1. Matrix: {}\n\n", length_matrix);
+    std::cout << "Answer: ";
+
+    std::string *answer = new std::string;
+    bool *stg = new bool;
+
+    *stg = true;
+    std::cin >> *answer;
+
+    if (*answer == "exit")
+    {
+        system("cls");
+        //mains();
+        *stg = false;
+    }
+
+    if (*answer == "help")
+    {
+        system("cls");
+        std::cout << "/help\n\n/resize - ...\n/exit - ...\n";
+        system("pause");
+        system("cls");
+        //settings();
+    }
+
+    if (*answer == "resize")
+    {
+        std::cout << "The name of settings: ";
+        short element, n;
+        std::cin >> element;
+
+        switch (element)
+        {
+        case 1:
+            std::cout << "Enter: ";
+            std::cin >> n;
+            re_length_matrix(n);
+        }
+
+        system("cls");
+        //settings();
+    }
+
+    delete answer;
+    *stg ? (delete stg, settings()) : (delete stg, mains());
+}

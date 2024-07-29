@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <format>
+#include <memory>
 
 #include "Shotgun.h"
 #include "Player.h"
@@ -18,7 +19,7 @@ void mains();
 void game()
 {
     matrix();
-    std::cout << color<Yellow, Black> << NAME_OF_GAME << color <LightGreen, Black>;
+    std::cout << color<Yellow, Black> << NAME << color <LightGreen, Black>;
 
     std::string* name1 = new std::string;
     std::string* name2 = new std::string;
@@ -27,7 +28,7 @@ void game()
     check(*name2, 2);
 
     TwoPlayers players(*name1, *name2);
-    delete name1; delete name2;
+    delete name1, name2;
     //Shotgun shotgun;
     //players.get_shotgun(new Shotgun);
 
@@ -67,25 +68,17 @@ void settings()
     std::cout << "Answer: ";
 
     std::string *answer = new std::string;
-    bool *stg = new bool;
-
-    *stg = true;
+    std::unique_ptr<bool> stg = std::make_unique<bool>(true);
+    //bool *stg = new bool {true};
     std::cin >> *answer;
 
-    if (*answer == "exit")
-    {
-        system("cls");
-        //mains();
-        *stg = false;
-    }
+    if (*answer == "exit") *stg = false;
 
     if (*answer == "help")
     {
         system("cls");
         std::cout << "/help\n\n/resize - ...\n/exit - ...\n";
         system("pause");
-        system("cls");
-        //settings();
     }
 
     if (*answer == "resize")
@@ -101,43 +94,28 @@ void settings()
             std::cin >> n;
             re_length_matrix(n);
         }
-
-        system("cls");
-        //settings();
     }
 
+    system("cls");
     delete answer;
-    *stg ? (delete stg, settings()) : (delete stg, mains());
+    *stg ? settings() : mains();
 }
 
 /// @brief Главное меню
 void mains()
 {
     std::cout << color<Red, Black> << NAME << "\n\n\n";
-    std::string *mainstr = new std::string;
+    std::unique_ptr<std::string> mainstr(new std::string);
 
     std::cout << color<Yellow, Black> << MENU << color << "\n\n\n" << ENTER;
     std::cin >> *mainstr;
 
     system("cls");
-    if (*mainstr == "new") 
-    {
-        delete mainstr;
-        game();
-    }
-    else if (*mainstr == "settings") 
-    {
-        delete mainstr;
-        settings();
-    }
-    else if (*mainstr == "exit") 
-    {
-        delete mainstr;
-        exit(0);
-    }
+    if (*mainstr == "new") game();
+    else if (*mainstr == "settings") settings();
+    else if (*mainstr == "exit") exit(0);
     else 
     {
-        delete mainstr;
         goto stop;
         stop: std::cout << "Error 404";
     }

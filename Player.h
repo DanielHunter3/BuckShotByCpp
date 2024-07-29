@@ -43,7 +43,7 @@ public:
 	/// @brief Восстанавливает игроку по одному ХП
 	void regeneration()
 	{
-		if (!in_vector(items->ReturnObjects(), CIGARETTE)) std::cout << "Object is undefined";
+		if (!in_container(items->ReturnObjects(), CIGARETTE)) std::cout << "Object is undefined";
 		else
 		{
 			if (hearts >= copy_hearts) std::cout << "Do not real!";
@@ -182,7 +182,7 @@ public:
 	{
 		if (user_objects().empty())
 			std::cout << "No objects to use\n";
-		else if (!in_vector(user_objects(), object))
+		else if (!in_container(user_objects(), object))
 			std::cout << "The object was not found\n";
 		else
 		{

@@ -23,11 +23,11 @@ void important_process(TwoPlayers &players, Shotgun &shotgun) // TODO: bool isIt
         while (true)
         {
             std::cin >> *answer;
-            if (in_array(iii, *answer) || in_array(another, *answer)) break;
+            if (in_container(iii, *answer) || in_container(another, *answer)) break;
             else std::cout << "Try again: ";
         }
 
-        if (in_array(iii, *answer))
+        if (in_container(iii, *answer))
         {
             players.reverse_turn_for_damage(false);
         
@@ -85,11 +85,11 @@ void important_process_objects(TwoPlayers &players, Shotgun &shotgun, short quan
         while (true)
         {
             std::cin >> *answer;
-            if (in_array(iii, *answer) || in_array(another, *answer)) break;
+            if (in_container(iii, *answer) || in_container(another, *answer)) break;
             else std::cout << "Try again: ";
         }
 
-        if (in_array(iii, *answer))
+        if (in_container(iii, *answer))
         {
             players.reverse_turn_for_damage(false);
         

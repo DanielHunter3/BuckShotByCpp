@@ -3,87 +3,55 @@
 #include <iostream>
 #include <vector>
 #include <random>
-#include <stdio.h>
-
-// TODO: #include "Player.h"
+#include <algorithm>
 
 class Shotgun 
 {
 private:
-	// ! Это указатель! Очищается в деструкторе.
-	std::vector<bool> *queue = new std::vector<bool>; // * Очередь патронов (full - true, empty - false)
-	size_t full, empty;       // * full - полный, empty - пустой
-	short shotgun_damage = 1; // * Урон
+    std::vector<bool> *queue = new std::vector<bool>();
+    size_t full, empty;
+    short shotgun_damage = 1;
 
 public:
+    void get(size_t full, size_t empty) {
+        this->full = full;
+        this->empty = empty;
+    }
 
-	/// @brief Ввести кол-во полных и пустых патронов
-	/// @param full полный патрон
-	/// @param empty пустой патрон
-	void get(size_t full, size_t empty) {
-		this->full = full;
-		this->empty = empty;
-	}
+    void create_queue() 
+    {
+        queue->reserve(full + empty);
+        std::vector<bool> vec(full, true);
+        vec.insert(vec.end(), empty, false);
 
-	/// @brief Создание очереди патронов
-	void create_queue() 
-	{
-		std::vector<bool> vec;
-		std::random_device rnd;
-		std::mt19937 gen(rnd());
-		
-		for (unsigned i = 0; i < full; ++i) vec.push_back(true);
-		for (unsigned i = 0; i < empty; ++i) vec.push_back(false);
-		
-		while (vec.size() != 0)
-		{
-			std::uniform_int_distribution<size_t> *dist = new std::uniform_int_distribution<size_t>(0, vec.size() - 1); // ! Указатель
-			size_t *randindex = new size_t; // ! Указатель
+        std::random_device rnd;
+        std::mt19937 gen(rnd());
+        std::shuffle(vec.begin(), vec.end(), gen);
 
-			*randindex = (*dist)(gen);
-			queue->push_back(vec[*randindex]);
-			vec.erase(vec.begin() + *randindex);
+        *queue = vec;
+    }
 
-			delete randindex;   // ! Очистить указатель
-			delete dist;        // ! Очистить указатель
-		}
-	}
+    void print_queue() {
+        std::cout << "[ ";
+        for (const auto& shot : *queue) {
+            std::cout << shot << ' ';
+        }
+        std::cout << ']' << std::endl << queue->size() << '\n';
+    }
 
-	/// @brief Вывести очередь патронов
-	void print_queue() {
-		std::cout << "[ ";
-		for (int i = 0; i < queue->size(); ++i) std::cout << (*queue)[i] << ' ';
-		std::cout << ']' << std::endl << queue->size();
-	}
+    bool fire() { return queue->back(); }
+    void del() { queue->pop_back(); }
+    void clear() { full = empty = 0; queue->clear(); }
 
-	/// @brief Возвращает первый патрон в обойме
-	/// @return bool первый патрон в типе true || false
-	bool fire() { return queue->back(); }
-	/// @brief Удалить первый патрон в обойме
-	void del() { queue->pop_back(); }
-	/// @brief Очистить все данные
-	void clear() 
-	{ 
-		full = empty = 0;
-		queue->clear(); 
-	}
+    void get_info() { printf("Full: %zd\nEmpty: %zd", full, empty); }
+    size_t size() { return queue->size(); }
 
-	/// @brief Пишет кол-во полных и пустых патронов
-	void get_info() { printf("Full: %zd\nEmpty: %zd", full, empty); }
-	/// @brief Возвращает кол-во патронов в очереди
-	/// @return size_t queue->size()
-	size_t size() { return queue->size(); }
+    short return_damage() { return shotgun_damage; }
+    void swap_damage() { shotgun_damage = (shotgun_damage == 1) ? 2 : 1; }
 
-	/// @brief Возвращает урон
-	/// @return short shotgun_damage
-	short return_damage() { return shotgun_damage; }
-	/// @brief Сменить кол-во урона
-	void swap_damage() { shotgun_damage = (shotgun_damage == 1) ? 2 : 1; } //shotgun_damage == 1 ? shotgun_damage = 2 : shotgun_damage = 1;
-
-	/// @brief Деструктор
-	~Shotgun() { 
-		std::cout << "Queue of shots has been deleted (from Shotgun)\n";
-		clear();
-		delete queue; 
-	}
+    ~Shotgun() { 
+        clear();  // Clean up the vector and delete the pointer
+        delete queue;
+        std::cout << "Queue of shots has been deleted (from Shotgun)\n";
+    }
 };

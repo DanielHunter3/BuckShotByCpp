@@ -73,14 +73,23 @@ public:
 	{
 		std::random_device rnd;
 		std::mt19937 gen(rnd());
+		std::uniform_int_distribution<> dist(1, 5);
+
+		items->reserve(number);
 
 		for (unsigned i = 0; i < number; ++i)
 		{
 			if (items->size() > 7) break;
-			std::uniform_int_distribution<> *dist = new std::uniform_int_distribution<>(1, 5);
-			items->push_back(translatorToItem((*dist)(gen)));
-			delete dist;
-		}
+            items->push_back(translatorToItem(dist(gen)));
+		} 
+
+		// for (unsigned i = 0; i < number; ++i)
+		// {
+		// 	if (items->size() > 7) break;
+		// 	std::uniform_int_distribution<> *dist = new std::uniform_int_distribution<>(1, 5);
+		// 	items->push_back(translatorToItem((*dist)(gen)));
+		// 	delete dist;
+		// }
 	}
 
 	/// @brief Возвращает очередь объектов в виде вектора строк
@@ -88,6 +97,7 @@ public:
 	std::vector<std::string> ObjectsByStr()
 	{
 		std::vector<std::string> result;
+		result.reserve(items->size());
 		for (Objects &i: *items) result.push_back(translatorToString(i));
 		return result;
 	}

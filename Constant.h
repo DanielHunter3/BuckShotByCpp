@@ -1,5 +1,7 @@
 #pragma once
 
+#include <array>
+
 const std::string NAME = R"SONG(
  ____                   _      ____    _               _       ____                    _          _     _
 | __ )   _   _    ___  | | __ / ___|  | |__     ___   | |_    |  _ \    ___    _   _  | |   ___  | |_  | |_    ___ 
@@ -97,7 +99,7 @@ const std::string AREA2 = R"SONG(
     ***************************************************
 )SONG";
 
-const std::string NAME_OF_GAME = "\n\t\t\t\t\t\t\t\t\t\t\t\t\tBuckshot Roulette\n\n";
+//const std::string NAME_OF_GAME = "\n\t\t\t\t\t\t\t\t\t\t\t\t\tBuckshot Roulette\n\n";
 
-const std::string iii[] { "I", "i" };
-const std::string another[] { "Foe", "foe", "FOE" };
+const std::array<std::string, 2> iii { "I", "i" };
+const std::array<std::string, 3> another { "Foe", "foe", "FOE" };
