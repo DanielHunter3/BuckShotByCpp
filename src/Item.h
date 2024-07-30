@@ -96,13 +96,55 @@ public:
 	/// @return std::vector<std::string> result
 	std::vector<std::string> ObjectsByStr()
 	{
-		std::vector<std::string> result;
+		std::vector<std::string> result;  // вектор для хранения строк объектов в виде
+		std::string tmp;          // временная переменная для хранения строки объекта в виде
+		short count = 0;      // счетчик для выравнивания по центру
 		result.reserve(items->size());
-		for (Objects &i: *items) result.push_back(translatorToString(i));
-		return result;
+		// ? for (Objects &i: *items) result.push_back(translatorToString(i));
+		//*----------------------------------------------------------------
+		for (auto &i: *items)
+		{
+			++count;
+			tmp = translatorToString(i);
+			if (tmp.size() < 9)
+			{
+				if (count % 2 == 1)
+					tmp.append(9 - tmp.size(), ' ');
+				else
+					tmp = std::string(9 - tmp.size(),' ').append(tmp);
+			}
+            result.push_back(tmp);
+		}
+		if (items->size() != 8)
+		    for (int i = 0; i < 8 - items->size(); ++i)
+			{
+				++count;
+				if (count % 2 == 1)
+					tmp = "         ";
+				else
+				    tmp = "         ";
+				result.push_back(tmp);
+			}
+		//*-----------------------------------------------------------------
+		return result; // возвращаем вектор строк объектов
 	}
 
 	std::vector<Objects> ReturnObjects() { return *items; }
+
+	void show_objects()
+	{
+		std::string str1, str2, str3, str4;
+		std::cout << "---------------------\t---------------------\n";
+		for (unsigned i = 0; i < 8; i += 4)
+		{
+			str1 = ObjectsByStr()[i];
+			str2 = ObjectsByStr()[i + 1];
+			str3 = ObjectsByStr()[i + 2];
+			str4 = ObjectsByStr()[i + 3];
+			std::cout << '|' << str1 << '|' << str2 << "|\t|" << str3 << '|' << str4 << "|\n";
+			std::cout << "---------------------\t---------------------\n";
+		}
+	}
 
 	void clear() { items->clear(); }
 	void erase(const Objects &object) 
