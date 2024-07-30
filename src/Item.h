@@ -117,14 +117,7 @@ public:
 		}
 		if (items->size() != 8)
 		    for (int i = 0; i < 8 - items->size(); ++i)
-			{
-				++count;
-				if (count % 2 == 1)
-					tmp = "         ";
-				else
-				    tmp = "         ";
-				result.push_back(tmp);
-			}
+				result.push_back("         ");
 		//*-----------------------------------------------------------------
 		return result; // возвращаем вектор строк объектов
 	}
