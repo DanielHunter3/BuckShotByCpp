@@ -6,41 +6,33 @@
 #include "Item.h"
 #include "Constant.h"
 #include "Details.h"
+#include "Shotgun.h"
 
 class OnePlayer
 {
+public:
+	Shotgun *shotgun;   //   ! Указатель на оружие
+
 private:
-	// ! Указатель
-	Items *items = new Items;
+	Items *items = new Items;  // ! Указатель
 	std::string name; // * Имя игрока
-	size_t hearts;    // * Кол-во ХП игрока
-	size_t copy_hearts;  // * Копия hearts
+	size_t hearts, copy_hearts;
 	bool is_changeUp = false; // * Связан ли игрок наручниками
 
 public:
+	OnePlayer(std::string name, Shotgun *weapon) : name(name), shotgun(weapon) {}
 	OnePlayer(std::string name) : name(name) {}
 	OnePlayer() {}
-	/// @brief Задаёт игроку имя
-	/// @param name имя игрока
+	void getWeapon(Shotgun *weapon) { shotgun = weapon; }
 	void rename(std::string name) { this->name = name; }
-	/// @brief Возвращает имя игрока
-	/// @return std::string name
 	std::string setName() { return name; }
 
-	/// @brief Задаёт игроку кол-во ХП
-	/// @param lives кол-во начальных жизней игрока
 	void getLives(size_t lives) { hearts = copy_hearts = lives; }
-	/// @brief Возвращает кол-во ХП игрока
-	/// @return size_t hearts
 	size_t setLives() { return hearts; }
 	size_t setFullLives() { return copy_hearts; }
 
-	/// @brief Наносит игроку урон
-	/// @param damage кол-во урона
 	void damage(size_t damage) { hearts -= damage; }
-	/// @brief Игрок умер
 	void death() { hearts = 0; }
-	/// @brief Восстанавливает игроку по одному ХП
 	void regeneration()
 	{
 		if (!in_container(items->ReturnObjects(), CIGARETTE)) std::cout << "Object is undefined";
@@ -55,16 +47,46 @@ public:
 		}
 	}
 
-	/// @brief Генерирует список объектов
-	/// @param n кол-во объектов
 	void generate_objects(size_t n) { items->generate(n); }
-	/// @brief Очищает список объектов
 	void clear_objects() { items->clear(); }
-	/// @brief Выводит объекты
-	void println_objects()
-	{ for (std::string &i: items->ObjectsByStr()) std::cout << i << '\n'; }
 	std::vector<Objects> ret_items() { return items->ReturnObjects(); };
 	void output_objects() { items->show_objects(); }
+
+	void use(Objects &&object) // & or &&
+	{
+		if (items->ReturnObjects().empty())
+			std::cout << "No objects to use\n";
+		else if (!in_container(items->ReturnObjects(), object))
+			std::cout << "The object was not found\n";
+		else
+		{
+			switch (object)
+			{
+				case CIGARETTE:
+                    regeneration();
+					std::cout << "The cigarette has been used\n";
+                    break;
+				case BEER:
+				    std::cout << "The beer has been used\n";
+					std::cout << (shotgun->fire() ? "FULL" : "EMPTY") << std::endl;
+					shotgun->del();
+                    break;
+                case MAGNIFIER:
+				    std::cout << "The magnifier has been used\n";
+					std::cout << (shotgun->fire() ? "FULL" : "EMPTY") << std::endl;
+                    break;
+				case KNIFE:
+				    std::cout << "The knife has been used\n";
+                    shotgun->swap_damage();
+                    break;
+                default:
+                    std::cout << "Unknown object\n";
+                    break;
+			}
+		}
+	}
+
+	size_t count_of_object(Objects &&object) { return items->count_of_element(object); }
 	
 	/// @brief Деструктор
 	~OnePlayer() { 

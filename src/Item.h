@@ -150,6 +150,9 @@ public:
 			}
 	}
 
+    size_t count_of_element(Objects &object) const 
+	{ return std::count(items->begin(), items->end(), object); }
+
 	/// @brief Деструктор
 	~Items() { 
 		std::cout << "Queue of items has been deleted (from Items)\n";
