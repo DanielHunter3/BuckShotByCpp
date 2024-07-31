@@ -64,6 +64,7 @@ public:
 	void println_objects()
 	{ for (std::string &i: items->ObjectsByStr()) std::cout << i << '\n'; }
 	std::vector<Objects> ret_items() { return items->ReturnObjects(); };
+	void output_objects() { items->show_objects(); }
 	
 	/// @brief Деструктор
 	~OnePlayer() { 

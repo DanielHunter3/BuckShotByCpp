@@ -21,14 +21,11 @@ void game()
     matrix();
     std::cout << color<Yellow, Black> << NAME << color <LightGreen, Black>;
 
-    std::string* name1 = new std::string;
-    std::string* name2 = new std::string;
+    std::string* name = new std::string;
+    check(*name, 1);
 
-    check(*name1, 1);
-    check(*name2, 2);
-
-    TwoPlayers players(*name1, *name2);
-    delete name1, name2;
+    TwoPlayers players(*name);
+    delete name;
     //Shotgun shotgun;
     //players.get_shotgun(new Shotgun);
 

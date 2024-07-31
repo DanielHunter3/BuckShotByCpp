@@ -19,6 +19,9 @@ public:
         this->empty = empty;
     }
 
+    std::pair<size_t, size_t> setShot()
+    { return std::pair<size_t, size_t>(full, empty); };
+
     void create_queue() 
     {
         queue->reserve(full + empty);
