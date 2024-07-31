@@ -14,7 +14,7 @@ public:
     {
         auto [full, empty] = Dealer->shotgun->setShot();
         if ((full + empty) < Dealer->setFullLives() && in_container(Dealer->ret_items(), CIGARETTE))
-            while((full + empty) == Dealer->setFullLives() || Dealer->count_of_object(CIGARETTE) != 0)
+            while((full + empty) == Dealer->setFullLives() && Dealer->count_of_object(CIGARETTE) != 0)
                 Dealer->use(CIGARETTE);
     }
     void s() {
