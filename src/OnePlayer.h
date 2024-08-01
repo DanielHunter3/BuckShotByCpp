@@ -27,7 +27,10 @@ public:
 	void rename(std::string name) { this->name = name; }
 	std::string setName() { return name; }
 
-	void getLives(size_t lives) { hearts = copy_hearts = lives; }
+	void getLives(size_t lives) { 
+		hearts = lives; 
+		copy_hearts = hearts;
+	}
 	size_t setLives() { return hearts; }
 	size_t setFullLives() { return copy_hearts; }
 

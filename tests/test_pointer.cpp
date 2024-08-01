@@ -1,15 +1,27 @@
 #include <iostream>
+#include <thread>
+#include <chrono>
+
+void DoWork()
+{
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    for (int i = 0; i < 10; ++i)
+    {
+        std::cout << "Thread ID: " << std::this_thread::get_id() << " - " << i + 1 << " times\n";
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }
+}
 
 int main()
 {
-    int *ptr1 = new int(5);
-    int *ptr2 = ptr1;
+    std::thread t1(DoWork);
 
-    std::cout << ptr1 << " : " << &ptr1 << " : " << *ptr1 << std::endl;
-    std::cout << ptr2 << " : " << &ptr2 << " : " << *ptr2 << std::endl;
+    for (int i = 0; i < 10; ++i)
+    {
+        std::cout << "Thread ID: " << std::this_thread::get_id() << " - " << i + 1 << " times\n";
+        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    }
 
-    ptr2 = nullptr; // Nullify the original pointer to prevent dangling reference
-    std::cout << ptr1 << " : " << &ptr1 << " : " << *ptr1 << std::endl;
-    std::cout << ptr2 << " : " << &ptr2 << " : " << *ptr2 << std::endl;
-    delete ptr1;
+    t1.join();
+    return 0;
 }

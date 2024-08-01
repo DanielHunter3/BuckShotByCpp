@@ -10,9 +10,11 @@ class TwoPlayers
 private:
 	enum Turn { Player, AI }; //First, Second
 	enum Turn_for_damage { OnPlayer, OnAI }; //first_damage, second_damage
+
 	Shotgun *shotgun = new Shotgun; // * new shotgun
 	OnePlayer player; // * player
 	AI_Player dealer; // * dealer (AI)
+	
 	Turn turn = Turn::Player; // * Очередь стрелять или использовать предеметы игрока
 	Turn_for_damage turn_for_damage; // * В кого стрелять
 

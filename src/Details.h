@@ -25,3 +25,12 @@ void check(std::string& name, size_t num)
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 }
+
+void output_text(std::string text)
+{
+    for (auto &i: text)
+    {
+        std::cout << i;
+        Sleep(100); //100
+    }
+}
