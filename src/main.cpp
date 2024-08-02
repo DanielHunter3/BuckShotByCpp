@@ -1,18 +1,13 @@
 ﻿#include "Mode.h"
-#include "AI.h"
-#include "Shotgun.h"
+#include <iostream>
+#include "Details.h"
 
 int main() { 
     //mains();
-    AI_Player ai;
-    ai.Dealer->getLives(6);
-    ai.Dealer->generate_objects(8);
-    ai.Dealer->damage(3);
-    ai.Dealer->output_objects();
-    ai.Dealer->getWeapon(new Shotgun);
-    ai.analyze();
-    std::cout << ai.Dealer->setLives() << std::endl;
-    ai.Dealer->output_objects();
 
-    system("pause");
+    bool x = 0;
+    if (!x) std::cout << "false is true" << std::endl;
+
+    // for (int i = 0; i < 10; ++i) 
+    //     std::cout << randint() << std::endl;
 }

@@ -55,7 +55,7 @@ public:
 	std::vector<Objects> ret_items() { return items->ReturnObjects(); };
 	void output_objects() { items->show_objects(); }
 
-	void use(Objects &&object) // & or &&
+	void use(Objects &&object, bool isPlayer = false) // & or &&
 	{
 		if (items->ReturnObjects().empty())
 			std::cout << "No objects to use\n";
@@ -76,7 +76,7 @@ public:
                     break;
                 case MAGNIFIER:
 				    std::cout << "The magnifier has been used\n";
-					std::cout << (shotgun->fire() ? "FULL" : "EMPTY") << std::endl;
+					if (isPlayer) std::cout << (shotgun->fire() ? "FULL" : "EMPTY") << std::endl;
                     break;
 				case KNIFE:
 				    std::cout << "The knife has been used\n";

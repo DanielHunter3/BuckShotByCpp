@@ -22,7 +22,7 @@ void game()
     std::cout << color<Yellow, Black> << NAME << color <LightGreen, Black>;
 
     std::string* name = new std::string;
-    check(*name, 1);
+    check(*name);
 
     TwoPlayers players(*name);
     delete name;

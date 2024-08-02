@@ -24,6 +24,7 @@ public:
 		player.rename(name);
 		player.getWeapon(shotgun);
 		dealer.Dealer->getWeapon(shotgun);
+		dealer.getPlayer(&player);
 	}
 
 	void get(size_t lives) 
@@ -110,7 +111,7 @@ public:
 
 	~TwoPlayers()
 	{ 
-		delete shotgun;
+		delete shotgun;  // ! Delete shotgun after destruction of TwoPlayers class
 		std::cout << "Shotgun has been deleted (from TwoPlayers)\n"; 
 	}
 };

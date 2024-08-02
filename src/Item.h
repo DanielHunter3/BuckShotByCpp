@@ -69,7 +69,7 @@ public:
 
 	/// @brief Сгенерировать очередь объектов
 	/// @param number кол-во объектов
-	void generate(size_t number)
+	void generate(size_t number)    // * Сгенерировать очередь объектов
 	{
 		std::random_device rnd;
 		std::mt19937 gen(rnd());

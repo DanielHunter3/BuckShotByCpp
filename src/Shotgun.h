@@ -9,7 +9,7 @@
 class Shotgun 
 {
 private:
-    std::vector<bool> *queue = new std::vector<bool>();
+    std::vector<bool> *queue = new std::vector<bool>();  // ! Delete in destructor
     size_t full, empty;
     short shotgun_damage = 1;
 
@@ -19,10 +19,10 @@ public:
         this->empty = empty;
     }
 
-    std::pair<size_t, size_t> setShot()
-    { return std::pair<size_t, size_t>(full, empty); };
+    std::pair<size_t, size_t> setShot()  // * Возвращает текущее состояние очереди
+    { return std::pair<size_t, size_t>(full, empty); }
 
-    void create_queue() 
+    void create_queue()  // * Генерирует очередь из исходных состояний
     {
         queue->reserve(full + empty);
         std::vector<bool> vec(full, true);
@@ -35,7 +35,7 @@ public:
         *queue = vec;
     }
 
-    void print_queue() {
+    void print_queue() {  // * Выводит состояние очереди
         std::cout << "[ ";
         for (const auto& shot : *queue) {
             std::cout << shot << ' ';
