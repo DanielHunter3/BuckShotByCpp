@@ -1,12 +1,21 @@
+#include "windows.h"
 #include <iostream>
+#include <string>
+
+void output_text(std::string text)
+{
+    for (auto &i: text)
+    {
+        std::cout << i;
+        Sleep(100); //100
+    }
+}
 
 int main()
 {
-    int *p1 = new int;
-    int *p2 = p1;
-    p2 = p1;
-    delete p1;
-    p2 = nullptr;
-    std::cout << "H";
-    return 0;
+    std::string text = R"(
+"Hello, World!"
+fffssd
+    )";
+    output_text(text);
 }

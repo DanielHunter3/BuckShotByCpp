@@ -12,18 +12,20 @@ class OnePlayer
 {
 public:
 	Shotgun *shotgun;   //   ! Указатель на оружие
+	OnePlayer *player;
+	bool is_changeUp = false; // * Связан ли игрок наручниками
 
 private:
 	Items *items = new Items;  // ! Указатель
 	std::string name; // * Имя игрока
 	size_t hearts, copy_hearts;
-	bool is_changeUp = false; // * Связан ли игрок наручниками
 
 public:
 	OnePlayer(std::string name, Shotgun *weapon) : name(name), shotgun(weapon) {}
 	OnePlayer(std::string name) : name(name) {}
 	OnePlayer() {}
 	void getWeapon(Shotgun *weapon) { shotgun = weapon; }
+	void getPlayer(OnePlayer *player) { this->player = player; }
 	void rename(std::string name) { this->name = name; }
 	std::string setName() { return name; }
 
@@ -45,7 +47,7 @@ public:
 			else 
 			{
 				++hearts;
-				items->erase(CIGARETTE);
+				// items->erase(CIGARETTE);
 			}
 		}
 	}
@@ -82,10 +84,15 @@ public:
 				    std::cout << "The knife has been used\n";
                     shotgun->swap_damage();
                     break;
+				case HANDCUFFS:
+				    std::cout << "The handcuffs has been used\n";
+                    player->is_changeUp = true;
+                    break;
                 default:
                     std::cout << "Unknown object\n";
                     break;
 			}
+			items->erase(object);  // ! remove
 		}
 	}
 

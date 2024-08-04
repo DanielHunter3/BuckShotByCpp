@@ -5,16 +5,17 @@
 
 class AI_Player
 {
-private:
-    OnePlayer *player; // ! Не очищать!
+private: 
+    enum Action { OnPlayer, Undefined, OnAI };  // ?
+                                    //  { a, b }
+    std::pair<short, short> _procention {50, 50}; // ? a - Player, b - AI
+    bool _moving;   // ? cash variable for movement
 
 public:
-    bool shot_on_player;
+    bool shot_on_player;  // ?
     OnePlayer* Dealer = new OnePlayer("Dealer");  // ! Удаляется в деструкторе
     //AI_Player(Shotgun *weapon) {  shotgun = weapon; }
     AI_Player() {}
-
-    void getPlayer(OnePlayer *p) { player = p; } // инициализация игрока по pointer
 
     void analyze()
     {
@@ -29,13 +30,24 @@ public:
         }
         if (full == empty)
         {
-            if (in_container(player->ret_items(), MAGNIFIER))
+            if (in_container(Dealer->player->ret_items(), MAGNIFIER))
             {
                 output_text("(Dealer is using magnifier)\nDealer: \"Very Interesting\"\n");
                 shot_on_player = (Dealer->shotgun->fire()) ? true : false;
                 Dealer->use(MAGNIFIER);
             }
             else shot_on_player = randint();
+        }
+        if (full - empty >= 2)
+        {
+
+        }
+
+        if (shot_on_player && in_container(Dealer->ret_items(), KNIFE))
+        {
+            output_text("(Dealer is using knife)\n");
+            Dealer->use(KNIFE);
+            shot_on_player = false;
         }
     }
     void test() {  // tests for AI_Player class

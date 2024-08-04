@@ -23,8 +23,9 @@ public:
 	{
 		player.rename(name);
 		player.getWeapon(shotgun);
+		player.getPlayer(dealer.Dealer);
 		dealer.Dealer->getWeapon(shotgun);
-		dealer.getPlayer(&player);
+		dealer.Dealer->getPlayer(&player);
 	}
 
 	void get(size_t lives) 
