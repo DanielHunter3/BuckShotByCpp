@@ -5,8 +5,8 @@
 #include <map>
 #include <random>
 
-// TODO: #include "Player.h"
-// TODO: #include "Shotgun.h"
+// TODO: #include "Player.hpp"
+// TODO: #include "Shotgun.hpp"
 
 enum Objects { BEER, CIGARETTE, MAGNIFIER, KNIFE, HANDCUFFS };
 class Items
@@ -82,14 +82,6 @@ public:
 			if (items->size() > 7) break;
             items->push_back(translatorToItem(dist(gen)));
 		} 
-
-		// for (unsigned i = 0; i < number; ++i)
-		// {
-		// 	if (items->size() > 7) break;
-		// 	std::uniform_int_distribution<> *dist = new std::uniform_int_distribution<>(1, 5);
-		// 	items->push_back(translatorToItem((*dist)(gen)));
-		// 	delete dist;
-		// }
 	}
 
 	/// @brief Возвращает очередь объектов в виде вектора строк

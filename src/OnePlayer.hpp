@@ -3,10 +3,10 @@
 #include <iostream>
 #include <format>
 
-#include "Item.h"
-#include "Constant.h"
-#include "Details.h"
-#include "Shotgun.h"
+#include "Item.hpp"
+#include "Constant.hpp"
+#include "Details.hpp"
+#include "Shotgun.hpp"
 
 class OnePlayer
 {

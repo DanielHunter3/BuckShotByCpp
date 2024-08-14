@@ -5,13 +5,13 @@
 #include <format>
 #include <memory>
 
-#include "Shotgun.h"
-#include "TwoPlayers.h"
-#include "Item.h"
-#include "Details.h"
-#include "Winda.h"
-#include "Constant.h"
-#include "Process.h"
+#include "Shotgun.hpp"
+#include "TwoPlayers.hpp"
+#include "Item.hpp"
+#include "Details.hpp"
+#include "Winda.hpp"
+#include "Constant.hpp"
+#include "Process.hpp"
 
 void mains();
 

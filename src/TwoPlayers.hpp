@@ -1,9 +1,9 @@
 #pragma once
 
-#include "OnePlayer.h"
-#include "AI.h"
-#include "Item.h"
-#include "Shotgun.h"
+#include "OnePlayer.hpp"
+#include "AI.hpp"
+#include "Item.hpp"
+#include "Shotgun.hpp"
 
 class TwoPlayers
 {

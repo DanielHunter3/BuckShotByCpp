@@ -1,14 +1,14 @@
 #pragma once
 
-#include "OnePlayer.h"
-#include "Details.h"
+#include "OnePlayer.hpp"
+#include "Details.hpp"
 
 class AI_Player
 {
 private: 
-    enum Action { OnPlayer, Undefined, OnAI };  // ?
+    // ? num Action { OnPlayer, Undefined, OnAI };  // ?
                                     //  { a, b }
-    std::pair<short, short> _procention {50, 50}; // ? a - Player, b - AI
+    // ? std::pair<short, short> _procention {50, 50}; // ? a - Player, b - AI
     bool _moving;   // ? cash variable for movement
 
 public:
@@ -17,9 +17,9 @@ public:
     //AI_Player(Shotgun *weapon) {  shotgun = weapon; }
     AI_Player() {}
 
-    void analyze()
+    void heal()
     {
-        auto [full, empty] = Dealer->shotgun->setShot();
+        // Logic for healing player
         if (Dealer->setLives() < Dealer->setFullLives() && in_container(Dealer->ret_items(), CIGARETTE))
         {
             while(Dealer->setLives() != Dealer->setFullLives() && Dealer->count_of_object(CIGARETTE) != 0) //logic
@@ -28,6 +28,32 @@ public:
                 Dealer->use(CIGARETTE);
             }
         }
+    }
+
+    void equal_shots()
+    {
+        // Logic for equal shots
+        if (in_container(Dealer->player->ret_items(), MAGNIFIER))
+        {
+            output_text("(Dealer is using magnifier)\nDealer: \"Very Interesting\"\n");
+            _moving = (Dealer->shotgun->fire()) ? true : false;
+            Dealer->use(MAGNIFIER);
+        }
+
+        else if (in_container(Dealer->player->ret_items(), BEER))
+        {
+            output_text("(Dealer is using beer)\n");
+            Dealer->use(BEER);
+            // 
+        }
+
+        else _moving = randint(); // Рандом, преобразует int в bool
+    }
+
+    void analyze()
+    {
+        auto [full, empty] = Dealer->shotgun->setShot();
+        heal();
         if (full == empty)
         {
             if (in_container(Dealer->player->ret_items(), MAGNIFIER))

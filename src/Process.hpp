@@ -2,9 +2,9 @@
 
 #include <iostream>
 
-#include "Shotgun.h"
-#include "OnePlayer.h"
-#include "Details.h"
+#include "Shotgun.hpp"
+#include "OnePlayer.hpp"
+#include "Details.hpp"
 
 void important_process_objects(TwoPlayers &players, Shotgun &shotgun, bool isItems = false)
 {
